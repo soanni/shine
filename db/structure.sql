@@ -23,6 +23,20 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 
+--
+-- Name: hstore; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS hstore WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION hstore; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION hstore IS 'data type for storing sets of (key, value) pairs';
+
+
 SET search_path = public, pg_catalog;
 
 --
@@ -88,7 +102,8 @@ CREATE TABLE customers (
     email character varying NOT NULL,
     username character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    insights json DEFAULT '{}'::json
 );
 
 
@@ -260,6 +275,8 @@ CREATE TABLE users (
     last_sign_in_ip inet,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
+    roles character varying[] DEFAULT '{}'::character varying[],
+    settings hstore DEFAULT ''::hstore,
     CONSTRAINT email_must_be_company_email CHECK (((email)::text ~* '^[^@]+@gmail\.com'::text))
 );
 
@@ -437,6 +454,13 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 
 
 --
+-- Name: users_roles; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX users_roles ON users USING gin (roles);
+
+
+--
 -- Name: refresh_customer_details; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -483,4 +507,12 @@ INSERT INTO schema_migrations (version) VALUES ('20160513131817');
 INSERT INTO schema_migrations (version) VALUES ('20160515180443');
 
 INSERT INTO schema_migrations (version) VALUES ('20160516083736');
+
+INSERT INTO schema_migrations (version) VALUES ('20160523160510');
+
+INSERT INTO schema_migrations (version) VALUES ('20160523162207');
+
+INSERT INTO schema_migrations (version) VALUES ('20160523164411');
+
+INSERT INTO schema_migrations (version) VALUES ('20160523165231');
 
