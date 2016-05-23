@@ -1,0 +1,13 @@
+{
+  "name": "dsl-generated dependencies",
+  "dependencies": {
+    "bootstrap-sass-official": "latest",
+    "angular-route": "latest",
+    "angular-resource": "latest",
+    "angular-messages": "latest",
+    "angular": "~> 1.5"
+  },
+  "resolutions": {
+    "angular": "1.5"
+  }
+}

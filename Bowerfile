@@ -1,0 +1,8 @@
+asset 'bootstrap-sass-official'
+asset 'angular-route'
+# START_HIGHLIGHT
+asset 'angular-resource'
+asset 'angular-messages'
+# END_HIGHLIGHT
+asset 'angular', '~> 1.5'
+resolution 'angular', '1.5'

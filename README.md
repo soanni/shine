@@ -1,1 +1,1 @@
-# shine. Rails + Angular + Bootstrap
+# Rails 4 + Angular + Bootstrap
